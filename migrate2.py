@@ -4,11 +4,16 @@ import subprocess
 import os
 import openpyxl
 import sys
+import pandas
+from openpyxl.styles import Font
 
 pipeline='NULL'
 enc_pipeline='NULL'
 dec_pipeline='NULL'
 end_pipeline='NULL'
+i=0
+l=[]
+
 class inputsrc():
     width=1920
     height=1080
@@ -55,7 +60,10 @@ def setinput_pipeline():
 #joining the pipeline
 def join_pipeline():
     print('join pipeline is called')
-    print(pipeline+enc_pipeline+dec_pipeline+end_pipeline)
+    mainpipeline=pipeline+enc_pipeline+dec_pipeline+end_pipeline
+    print(mainpipeline)
+    global l
+    l.append(mainpipeline)
 
 def set_input_src():
     #print("setting the input src")
@@ -188,6 +196,38 @@ def read_data(filename):
         setencoder(split_args)
         setdecoder(split_args)
 
+#creating xl sheet
+def create_xls(filename):
+    print("xls is called")
+    with open('pipe.lst', 'r') as file:
+        lines = file.readlines()
+# Create a new workbook and select the active sheet
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+
+    title_elements = lines[0].strip().split(',')
+    for col_num,title in enumerate(title_elements,start=1):
+        sheet.cell(row=1,column=col_num,value=title).font=Font(name="Liberation Sans",size=10,bold=True)
+   
+    for row_num, line in enumerate(lines[1:], start=2):
+        elements = line.strip().split(',')
+        sheet.cell(row=row_num, column=1, value=elements[0]).font = Font(name='Liberation Sans', size=10)
+
+        for col_num, value in enumerate(elements[1:], start=2):
+            sheet.cell(row=row_num, column=col_num, value=value).font = Font(name='Liberation Sans', size=10) 
+    
+    workbook.save('/home/kishore/Desktop/samp1.xls')
+
+# #adding pipeline to xls
+# def add_pipeline_to_xls():
+#     global l
+#     file_path='/home/kishore/Desktop/samp1.xls'
+#     df=pandas.read_excel(file_path)
+#     colunmn_name='pipeline'
+#     df[colunmn_name]=None
+#     df.to_excel(file_path, index=False)
+
+
 def main():
     #print("main function is executed")
     n=len(sys.argv)
@@ -210,7 +250,9 @@ def main():
         filename=''.join(split_path[-1:])
         # print("filename is :",filename)
         #this read data fucntion is used to read the data
+        create_xls(filename)
         read_data(filename)
+        # add_pipeline_to_xls()
 
 if __name__=="__main__":
     main()
