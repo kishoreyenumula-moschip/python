@@ -1,0 +1,5 @@
+0-Source,1-Resolution&Fps,2-io-mode,3-Codec,4-target-bitrate,5-control-rate,6-max-bitrate,7-num-slices,8-gop-mode,9-gop-length,10-b-frames,11-latency-mode,12-profile,13-alignment,14-entropy-buffers
+HDMI,4kp60,5,HEVC,60000,variable,12700,22,basic,60,0,NA,high,nal,9
+HDMI,4kp30,5,AVC,60000,low-latency,NA,8,low-delay-p,60,0,normal,main,au,9
+HDMI,1080p60,5,AVC,60000,constant,NA,22,basic,60,NA,low-latency,main,au,9
+HDMI,1080p30,5,HEVC,60000,variable,10000,22,basic,60,NA,NA,high,nal,9
