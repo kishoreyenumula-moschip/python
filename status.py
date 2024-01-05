@@ -21,11 +21,11 @@ def pipeline_status(p,pipeline):
 
     sl=tl[-1].split(':')
     sl[-1]=sl[-1].rstrip('\n')
-    print(sl)
+    # print(sl)
 
     time= str(int(sl[0])*3600 + int(sl[1])*60 + float(sl[2]))
     ms=time.split('.')
-    print(ms[0])
+    # print(ms[0])
     mins=int(ms[0])
 
     FRAME_RATE=pipeline.framerate
@@ -41,8 +41,8 @@ def pipeline_status(p,pipeline):
         num_Buff_delta_pos=int(NUM_BUFF)+Delta_For_NumBuff_30FPS
         num_Buff_delta_neg=int(NUM_BUFF)-Delta_For_NumBuff_30FPS
 
-    print(num_Buff_delta_pos)
-    print(num_Buff_delta_neg)
+    # print(num_Buff_delta_pos)
+    # print(num_Buff_delta_neg)
 
     if NUM_BUFF!='NA':
         if Ending_num_Buff >= num_Buff_delta_pos:
@@ -54,7 +54,8 @@ def pipeline_status(p,pipeline):
             Result='Fail'
         else:
             Result='Pass'
-    print(Result)
+    # print(Result)
+    return (Result)
 
 
 
